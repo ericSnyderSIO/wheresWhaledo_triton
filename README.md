@@ -11,6 +11,4 @@ Detection files are .mat files containing the following structs (where N is the 
 3) "LDet" (Nx1): likelihood of detection, dimensions Nx1. An arbitrary value representing how likely a particular detection is an actual detection. Value could be average peak of the cross-correlation of the data across all four channels, peak energy, or other values user chooses.
 4) "HydLoc" (1x3): Location of the array. HydLoc = [latitude, longitude, depth]. Latitude in decimal degrees is + for north, - for south of equator. Longitude is + for east, - for west of prime meridian. Depth is meters beneath sea surface (+ is down).
 
-The program will autosave progress in "D:\tempsave.mat". \n
-Maybe some day I'll make a user manual or comment my code, but today is not that day.
--ers, 2020-02-25
+The program will autosave progress in "D:\tempsave.mat". 

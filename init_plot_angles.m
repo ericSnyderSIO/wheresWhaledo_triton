@@ -1,0 +1,87 @@
+function fig = init_plot_angles(varargin)
+% Generates figure 139, the azimuth and elevation to each array. This is
+% triggered when the refresh button is pressed on the trackingGUI. It takes
+% whatever data is currently displayed on the ltsa_doa plots, and plots it
+% on figure 139.
+% varargin{1} = position of figure 139. If no arguments are fed into the
+% function, it sets a default position for the plot adjacent to
+% trackingGUI.
+
+global REMORA 
+
+REMORA.track = [];
+REMORA.brushing = [];
+  
+toff = datenum([2000 0 0 0 0 0]); % correct date values 
+
+geeKids = get(0, 'Children');
+monPos = get(0, 'MonitorPosition'); % get monitor positions
+noOfMonitors = size(monPos, 1); % get number of monitors
+
+I = find(contains({geeKids.Name}, 'LTSA DOA'));
+Igui = find(contains({geeKids.Name}, 'trackingGUI'));
+
+if nargin==0
+    pos(1) = geeKids(Igui).Position(1) + geeKids(Igui).Position(3)+3;
+    pos(2) = 45;
+    pos(3) = monPos(noOfMonitors,3) - pos(1) + geeKids(Igui).Position(1)-5;
+    pos(4) = monPos(noOfMonitors,4) - pos(2) - 85;
+    
+else
+    pos = varargin{1};
+end
+
+
+
+
+% retrieve time limits of DOA plot:
+ta = geeKids(I).Children(1).XLim(1) + toff;
+tb = geeKids(I).Children(1).XLim(2) + toff;
+
+N1 = find(REMORA.doa.TDet1>=ta & REMORA.doa.TDet1<=tb);
+N2 = find(REMORA.doa.TDet2>=ta & REMORA.doa.TDet2<=tb);
+
+
+TDet1 = REMORA.doa.TDet1(N1);
+TDet2 = REMORA.doa.TDet2(N2);
+Ang1 = REMORA.doa.Ang1(N1, :);
+Ang2 = REMORA.doa.Ang2(N2, :);
+
+toff = datenum([2000 0 0 0 0 0]);
+
+% retrieve time limits of DOA plot:
+ta = geeKids(I).Children(1).XLim(1) + toff;
+tb = geeKids(I).Children(1).XLim(2) + toff;
+
+N1 = find(REMORA.doa.TDet1>=ta & REMORA.doa.TDet1<=tb);
+N2 = find(REMORA.doa.TDet2>=ta & REMORA.doa.TDet2<=tb);
+
+
+TDet1 = REMORA.doa.TDet1(N1);
+TDet2 = REMORA.doa.TDet2(N2);
+Ang1 = REMORA.doa.Ang1(N1, :);
+Ang2 = REMORA.doa.Ang2(N2, :);
+LDet1 = REMORA.doa.LDet1(N1);
+LDet2 = REMORA.doa.LDet2(N2);
+
+% Set initial REMORA.brushing global variables (values referenced in current plot)
+REMORA.brushing.all.AR1.Ang = Ang1;
+REMORA.brushing.all.AR1.TDet = TDet1;
+REMORA.brushing.all.AR1.LDet = LDet1;
+REMORA.brushing.all.AR1.label = zeros(size(LDet1));
+REMORA.brushing.all.AR1.ind = 1:length(LDet1);
+
+REMORA.brushing.plotted.AR1 = REMORA.brushing.all.AR1.ind;
+
+REMORA.brushing.all.AR2.Ang = Ang2;
+REMORA.brushing.all.AR2.TDet = TDet2;
+REMORA.brushing.all.AR2.LDet = LDet2;
+REMORA.brushing.all.AR2.label = zeros(size(LDet2));
+REMORA.brushing.all.AR2.ind = 1:length(LDet2);
+
+REMORA.brushing.plotted.AR2 = REMORA.brushing.all.AR2.ind;
+
+fig = plot_angles;
+
+set(fig, 'Position', pos)
+

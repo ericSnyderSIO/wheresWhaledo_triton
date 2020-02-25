@@ -1,6 +1,6 @@
 # wheresWhaledo
 A tool to aide in recreating whale tracks via acoustic time difference of arrival (TDOA) localization from two 4-channel arrays.
-Where's Whaledo is a remora (add-on) to Triton, a free MATLAB acoustic data analysis package available at http://cetus.ucsd.edu/technologies_Software.html
+Where's Whaledo is a remora (add-on) to Triton, a free MATLAB acoustic data analysis package available at http://cetus.ucsd.edu/technologies_Software.html.
 
 Required inputs for Where's Whaledo: 
 1) Long-term spectral averages (made by Triton from wav or x.wav files) for both arrays

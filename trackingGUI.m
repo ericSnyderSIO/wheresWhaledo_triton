@@ -437,13 +437,13 @@ saveas(fig, [fpn, '_depthVsTime'], 'fig')
 saveas(fig, [fpn, '_depthVsTime'], 'jpg')
 
 % save data
-trk = REMORA.trk;
+track = REMORA.track;
 brushing = REMORA.brushing;
 hydLoc.H1 = REMORA.H1;
 hydLoc.H2 = REMORA.H2;
 hydLoc.H0 = REMORA.H0;
 
-save(fpn, 'trk', 'brushing', 'hydLoc')
+save(fpn, 'track', 'brushing', 'hydLoc')
 
 close(f)
 fprintf(['Files Saved!\nThank you for finding this whale!\n'])

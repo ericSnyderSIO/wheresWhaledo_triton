@@ -132,7 +132,7 @@ if strcmp(str, 'Load previously saved track')
     load(pfn)
     
     % load data
-    REMORA.trk = trk;
+    REMORA.track = trk;
     REMORA.brushing = brushing;
     REMORA.H1 = hydLoc.H1;
     REMORA.H2 = hydLoc.H2;

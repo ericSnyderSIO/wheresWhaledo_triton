@@ -41,10 +41,16 @@ end
 if nargout
     [varargout{1:nargout}] = gui_mainfcn(gui_State, varargin{:});
 else
-    gui_mainfcn(gui_State, varargin{:});
-    
+    try gui_mainfcn(gui_State, varargin{:});
+    catch 
+    end
 end
 % End initialization code - DO NOT EDIT
+
+function figure1_WindowKeyPressFcn
+% For some reason I get error messages if this isn't in the code. It does
+% nothing.
+fprintf('button pressed\n\n')
 
 
 % --- Executes just before trackingGUI is made visible.

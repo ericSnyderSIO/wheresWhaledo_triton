@@ -110,7 +110,7 @@ elseif noOfMonitors>1 % dual screen mode
     set(G, 'units', 'pixels', 'Position', [monPos(2,1)+5, 39, GUIpos(3), GUIpos(4)], 'units', 'pixels')
 end
 
-% for testing small GUI:
+% % for testing small GUI:
 % G = trackingGUI_small; % generate tracking GUI
 % GUIpos = getpixelposition(G,true); % retreive default location of tracking GUI -- used to set size of GUI
 % set(G, 'units', 'pixels', 'Position', [0, 39, GUIpos(3),GUIpos(4)], 'units', 'pixels')

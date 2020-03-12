@@ -41,7 +41,9 @@ end
 if nargout
     [varargout{1:nargout}] = gui_mainfcn(gui_State, varargin{:});
 else
-    gui_mainfcn(gui_State, varargin{:});
+    try gui_mainfcn(gui_State, varargin{:});
+    catch
+    end
     
 end
 % End initialization code - DO NOT EDIT
@@ -132,7 +134,7 @@ if strcmp(str, 'Load previously saved track')
     load(pfn)
     
     % load data
-    REMORA.trk = trk;
+    REMORA.track = track;
     REMORA.brushing = brushing;
     REMORA.H1 = hydLoc.H1;
     REMORA.H2 = hydLoc.H2;

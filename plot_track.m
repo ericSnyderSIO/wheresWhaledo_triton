@@ -231,8 +231,8 @@ for wn = 1:8
             
             
             fp = fill([REMORA.track{wn}.t, fliplr(REMORA.track{wn}.t)], ...
-                [REMORA.track{wn}.whaleLoc(:,3) - abs(REMORA.track{wn}.Lerr(:,3)./2); ...
-                flipud(REMORA.track{wn}.whaleLoc(:,3) + abs(REMORA.track{wn}.Lerr(:,3)./2))], [0.8, 0.8, 0.8]);
+                [REMORA.track{wn}.whaleLoc(:,3) - abs(REMORA.track{wn}.skewDist./2); ...
+                flipud(REMORA.track{wn}.whaleLoc(:,3) + abs(REMORA.track{wn}.skewDist./2))], [0.8, 0.8, 0.8]);
             fp.EdgeColor = 'none';
             hold on
             

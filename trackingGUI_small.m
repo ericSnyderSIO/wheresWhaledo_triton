@@ -131,14 +131,14 @@ if strcmp(str, 'Load previously saved track')
     BoxTitle = 'Select file';
     [FileName,PathName] = uigetfile(FilterSpec,BoxTitle);
     pfn = fullfile(PathName,FileName);
-    load(pfn)
+    ld = load(pfn);
     
     % load data
-    REMORA.track = track;
-    REMORA.brushing = brushing;
-    REMORA.H1 = hydLoc.H1;
-    REMORA.H2 = hydLoc.H2;
-    REMORA.H0 = hydLoc.H0;
+    REMORA.track = ld.track;
+    REMORA.brushing = ld.brushing;
+    REMORA.H1 = ld.hydLoc.H1;
+    REMORA.H2 = ld.hydLoc.H2;
+    REMORA.H0 = ld.hydLoc.H0;
     plot_angles;
     
 elseif strcmp(str, 'Change detection file')

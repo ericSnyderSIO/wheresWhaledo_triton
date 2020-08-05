@@ -69,14 +69,13 @@ for wn = 1:8 % iterate through each whale number
         % create interp time vector using only period where detections
         % overlap
         t = max([T1(1), T2(1)]):1/spd:min([T1(end), T2(end)]);
-%         t = unique(sort([T1; T2])).';
-
+        
         % interpolate. 'unwrap' included to correct for when whale crosses
         % 0/360 azimuth.
-        az1 = interp1(T1, (unwrap(AZ1.*pi/180).*180/pi), t);
-        el1 = interp1(T1, (EL1), t);
-        az2 = interp1(T2, (unwrap(AZ2.*pi/180).*180/pi), t);
-        el2 = interp1(T2, (EL2), t);
+        az1 = interp1(T1, smooth(unwrap(AZ1.*pi/180).*180/pi), t);
+        el1 = interp1(T1, smooth(EL1), t);
+        az2 = interp1(T2, smooth(unwrap(AZ2.*pi/180).*180/pi), t);
+        el2 = interp1(T2, smooth(EL2), t);
         
         REMORA.track{wn}.AR1.Ang = [AZ1, EL1];
         REMORA.track{wn}.AR1.t = T1;
@@ -107,13 +106,10 @@ for wn = 1:8 % iterate through each whale number
             s1 = [sind(180-el1(k))*cosd(az1(k)), sind(180-el1(k))*sind(az1(k)), cosd(180-el1(k))];
             s2 = [sind(180-el2(k))*cosd(az2(k)), sind(180-el2(k))*sind(az2(k)), cosd(180-el2(k))];
             
-            S = [s1; -s2].';
-            dh = (h2-h1).';
-            
-            R = S\dh;
-            
-            L1 = h1+R(1)*s1;
-            L2 = h2+R(2)*s2;
+            S = [s1; s2];
+                        
+            L1 = h1+r1best*s1;
+            L2 = h2+r2best*s2;
             
             whaleLoc = (L1+L2)./2;
            

@@ -74,6 +74,7 @@ REMORA.doa.Ang1 = Ang;
 REMORA.doa.TDet1 = TDet;
 REMORA.doa.LDet1 = LDet;
 REMORA.H1 = HydLoc;
+REMORA.doa.TDOA1 = TDOA;
 %%%%
 
 boxTitle2 = 'Choose 2st DOA file';
@@ -84,7 +85,7 @@ REMORA.doa.Ang2 = Ang;
 REMORA.doa.TDet2 = TDet;
 REMORA.doa.LDet2 = LDet;
 REMORA.H2 = HydLoc;
-
+REMORA.doa.TDOA2 = TDOA;
 
 REMORA.H0 = mean([REMORA.H1; REMORA.H2]); % set center of plot
 

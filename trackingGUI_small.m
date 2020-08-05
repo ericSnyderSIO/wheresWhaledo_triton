@@ -413,8 +413,9 @@ function exportTrk_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-f = msgbox('Saving Files ...');
 global REMORA
+
+f=msgbox({'AZ/EL plot...................';'3-D plot';'Depth vs time plot';'.mat data file'; ' ' } ,'Saving... !','modal');
 
 hp = findobj('Tag', 'exportpath');
 hn = findobj('Tag','exportName');
@@ -427,18 +428,23 @@ end
 
 % save figures:
 fig = figure(139);
-saveas(fig, [fpn, '_angles'], 'fig')
+% saveas(fig, [fpn, '_angles'], 'fig')
 saveas(fig, [fpn, '_angles'], 'jpg')
+
+f=msgbox({'AZ/EL plot...................Done!';'3-D plot.......................';'Depth vs time plot';'.mat data file'; ' ' } ,'Saving... !','modal');
 
 fig = figure(140);
 saveas(fig, [fpn, '_track3D'], 'fig')
 saveas(fig, [fpn, '_track3D'], 'jpg')
+
+f=msgbox({'AZ/EL plot...................Done!';'3-D plot.......................Done!';'Depth vs time plot.......';'.mat data file'; ' ' } ,'Saving... !','modal');
 
 fig = figure(141);
 saveas(fig, [fpn, '_depthVsTime'], 'fig')
 saveas(fig, [fpn, '_depthVsTime'], 'jpg')
 
 % save data
+f=msgbox({'AZ/EL plot...................Done!';'3-D plot.......................Done!';'Depth vs time plot.......Done!';'.mat data file...............'; ' ' } ,'Saving... !','modal');
 track = REMORA.track;
 brushing = REMORA.brushing;
 hydLoc.H1 = REMORA.H1;
@@ -446,6 +452,9 @@ hydLoc.H2 = REMORA.H2;
 hydLoc.H0 = REMORA.H0;
 
 save(fpn, 'track', 'brushing', 'hydLoc')
+f = msgbox({'AZ/EL plot...................Done!';'3-D plot.......................Done!';'Depth vs time plot.......Done!';'.mat data file...............Done!'; ' ' } ,'Saving... !','modal');
+pause(1)
+f = msgbox({'AZ/EL plot...................Done!';'3-D plot.......................Done!';'Depth vs time plot.......Done!';'.mat data file...............Done!'; 'THANK YOU FOR FINDING THESE WHALES!' } ,'Saving... !','modal');
+pause(3)
 
 close(f)
-fprintf(['Files Saved!\nThank you for finding this whale!\n'])

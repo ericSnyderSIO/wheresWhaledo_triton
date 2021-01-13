@@ -26,9 +26,9 @@ H2(3) = -abs(H2(3));
 H0(3) = 0;
 
 [h1(1), h1(2)] = latlon2xy(H1(1), H1(2), H0(1), H0(2)); % set hyd 1 loc in meters
-h1(3) = H1(3) - H0(3); % set h1 depth
+h1(3) = H0(3) - H1(3); % set h1 depth
 [h2(1), h2(2)] = latlon2xy(H2(1), H2(2), H0(1), H0(2)); % set hyd 2 loc in meters
-h2(3) = H2(3) - H0(3);
+h2(3) = H0(3) - H2(3);
 
 % lsqnonlin options:
 % options = optimoptions(@lsqnonlin, 'Algorithm', 'trust-region-reflective');

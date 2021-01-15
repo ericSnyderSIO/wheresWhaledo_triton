@@ -23,7 +23,7 @@ H0 = REMORA.H0;
 
 H1(3) = -abs(H1(3)); % make depth negative
 H2(3) = -abs(H2(3));
-H0(3) = 0;
+H0(3) = -abs(H0(3));
 
 [h1(1), h1(2)] = latlon2xy(H1(1), H1(2), H0(1), H0(2)); % set hyd 1 loc in meters
 h1(3) = H0(3) - H1(3); % set h1 depth
@@ -124,14 +124,14 @@ for wn = 1:8 % iterate through each whale number
             
             x(k) = whaleLoc(1);
             y(k) = whaleLoc(2);
-            z(k) = -whaleLoc(3);
+            z(k) = whaleLoc(3);
             
         end % for k
         
-        latlon = xy2latlon(x, y, H0(1), H0(2), 0);
+        [lat, lon] = xy2latlon(x, y, H0(1), H0(2));
         
-        REMORA.track{wn}.whaleLoc = [x, y, z-H0(3)];
-        REMORA.track{wn}.whaleLatLon = [latlon(1,:).', latlon(2,:).', z-H0(3)];
+        REMORA.track{wn}.whaleLoc = [x, y, abs(H0(3))-z];
+        REMORA.track{wn}.whaleLatLon = [lat, lon, abs(H0(3))-z];
         REMORA.track{wn}.Lerr = Lerr;
         REMORA.track{wn}.skewDist = skewDist;
         REMORA.track{wn}.t = t;
@@ -152,7 +152,7 @@ xmin = min([h1(1), h2(1)]);
 xmax = max([h1(1), h2(1)]);
 ymin = min([h1(2), h2(2)]);
 ymax = max([h1(2), h2(2)]);
-zmin = min([h1(3), h2(3)]);
+zmin = max([abs(H1(3)), abs(H2(3))]);
 zmax = max([h1(3), h2(3)]);
 
 fig = figure(figno);
@@ -165,7 +165,7 @@ for wn = 1:8
         colscale{wn}(:,2) = linspace(max([col(wn,2).*0.5, 0]), min([col(wn,2).*1.5, 1]), length(REMORA.track{wn}.t));
         colscale{wn}(:,3) = linspace(max([col(wn,3).*0.5, 0]), min([col(wn,3).*1.5, 1]), length(REMORA.track{wn}.t));
         
-        scatter3(REMORA.track{wn}.whaleLoc(:,1), REMORA.track{wn}.whaleLoc(:,2), -REMORA.track{wn}.whaleLoc(:,3),  ms, colscale{wn}, 'filled')
+        scatter3(REMORA.track{wn}.whaleLoc(:,1), REMORA.track{wn}.whaleLoc(:,2), REMORA.track{wn}.whaleLoc(:,3),  ms, colscale{wn}, 'filled')
         hold on
 %         leg(pltwn) = {['Whale ', num2str(wn)]};
         
@@ -180,9 +180,12 @@ for wn = 1:8
     end
 end
 
-scatter3(h1(1), h1(2), h1(3)+H0(3), 'r^')
-scatter3(h2(1), h2(2), h2(3)+H0(3), 'r^')
+scatter3(h1(1), h1(2), -H0(3), 'r^')
+scatter3(h2(1), h2(2), -H0(3), 'r^')
 hold off
+
+% flip z axis
+set(gca, 'zdir', 'reverse')
 
 % set axes to be cubic:
 maxaxis = max([xmax-xmin, ymax-ymin, zmax-zmin]);

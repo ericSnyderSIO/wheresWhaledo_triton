@@ -43,6 +43,7 @@ if nargout
 else
     try gui_mainfcn(gui_State, varargin{:});
     catch
+        fprintf('\n\nError occured: could not process request\n')
     end
     
 end

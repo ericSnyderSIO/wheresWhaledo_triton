@@ -22,7 +22,7 @@ function varargout = trackingGUI(varargin)
 
 % Edit the above textLD1 to modify the response to help trackingGUI
 
-% Last Modified by GUIDE v2.5 03-Feb-2020 14:32:46
+% Last Modified by GUIDE v2.5 03-Feb-2020 14:32:46 
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -43,6 +43,7 @@ if nargout
 else
     try gui_mainfcn(gui_State, varargin{:});
     catch 
+        fprintf('\n\nError occured: could not process request\n')
     end
 end
 % End initialization code - DO NOT EDIT
